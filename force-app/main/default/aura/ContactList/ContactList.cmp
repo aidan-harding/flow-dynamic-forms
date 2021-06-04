@@ -1,0 +1,35 @@
+<!--
+ - @author aidan@nebulaconsulting.co.uk
+ - @date 03/06/2021
+ - @description Loads a list of Contacts from an AccountId
+ -->
+
+<aura:component description="ContactList" controller="ContactListController" implements="lightning:availableForFlowScreens">
+    <!-- 0. Includes & Dependencies -->
+
+    <!-- 1a. Attributes - Private -->
+    <aura:attribute name="contacts" access="global" type="Contact[]"/>
+
+    <!-- 1b. Attributes - Public -->
+    <aura:attribute name="accountId" access="public" type="Id"/>
+
+    <!-- 2a. Handlers - Local -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- 2b. Handlers - Event -->
+
+    <!-- 3. Event Register -->
+
+    <!-- 4. Methods -->
+
+    <!-- 5. Data Service Components, e.g. LDS or Providers -->
+
+    <!-- 6. Component Markup -->
+
+    <div>
+        <aura:iteration items="{!v.contacts}" var="thisContact">
+            <lightning:flow aura:id="theFlow"/>
+        </aura:iteration>
+    </div>
+
+</aura:component>
