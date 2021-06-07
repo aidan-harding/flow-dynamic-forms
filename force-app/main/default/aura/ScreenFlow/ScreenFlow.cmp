@@ -1,0 +1,31 @@
+<!--
+ - @author aidan@nebulaconsulting.co.uk
+ - @date 07/06/2021
+ - @description A single Screen Flow. Note that LWC does not allow this at the moment (Summer 21 release)
+ -->
+
+<aura:component description="ScreenFlow">
+    <!-- 0. Includes & Dependencies -->
+
+    <!-- 1a. Attributes - Private -->
+
+    <!-- 1b. Attributes - Public -->
+    <aura:attribute name="flowDeveloperName" access="public" type="String"/>
+    <aura:attribute name="record" access="public" type="SObject"/>
+
+    <!-- 2a. Handlers - Local -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- 2b. Handlers - Event -->
+
+    <!-- 3. Event Register -->
+
+    <!-- 4. Methods -->
+
+    <!-- 5. Data Service Components, e.g. LDS or Providers -->
+
+    <!-- 6. Component Markup -->
+
+    <lightning:flow aura:id="theFlow" class="slds-box_border"/>
+
+</aura:component>

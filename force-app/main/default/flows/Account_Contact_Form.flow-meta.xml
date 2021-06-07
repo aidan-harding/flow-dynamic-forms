@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Serialise_Contacts</name>
+        <label>Serialise Contacts</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <actionName>FlowJsonSerializeRecords</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Account_Contacts</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__records</typeName>
+            <typeValue>Contact</typeValue>
+        </dataTypeMappings>
+        <inputParameters>
+            <name>records</name>
+            <value>
+                <elementReference>Get_Contacts</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
     <apiVersion>51.0</apiVersion>
     <interviewLabel>Account + Contact Form {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Account + Contact Form</label>
@@ -22,11 +44,34 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_Contacts</name>
+        <label>Get Contacts</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Serialise_Contacts</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Account.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Contact</object>
+        <sortField>Name</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <screens>
         <name>Account_Contacts</name>
         <label>Account + Contacts</label>
         <locationX>176</locationX>
-        <locationY>158</locationY>
+        <locationY>398</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -42,8 +87,20 @@
         </fields>
         <fields>
             <name>ContactList</name>
-            <extensionName>c:ContactList</extensionName>
+            <extensionName>c:FlowList</extensionName>
             <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>serializedRecords</name>
+                <value>
+                    <elementReference>Serialise_Contacts</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>flowDeveloperName</name>
+                <value>
+                    <stringValue>Contact_Form</stringValue>
+                </value>
+            </inputParameters>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -54,7 +111,7 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Account_Contacts</targetReference>
+            <targetReference>Get_Contacts</targetReference>
         </connector>
     </start>
     <status>Active</status>

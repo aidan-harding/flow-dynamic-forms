@@ -1,0 +1,9 @@
+<!--
+ - @author aidan@nebulaconsulting.co.uk
+ - @date 04/06/2021
+ -->
+
+<design:component>
+    <design:attribute name="serializedRecords" label="Record List (as a JSON string)" />
+    <design:attribute name="flowDeveloperName" label="Flow Developer Name" />
+</design:component>

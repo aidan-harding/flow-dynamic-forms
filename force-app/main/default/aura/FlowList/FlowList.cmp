@@ -1,0 +1,38 @@
+<!--
+ - @author aidan@nebulaconsulting.co.uk
+ - @date 04/06/2021
+ - @description Takes a list of serialized records, and a screen flow name. Displays the records as a list,
+ each in an instance of the screen flow. Note that Screen Flows cannot be shows in LWCs yet (Summer 21). Also, the
+ records variable type of SObject is not recognised by Flow Builder (it only supports concrete types), so we go via
+ JSON.
+ -->
+
+<aura:component description="FlowList" implements="lightning:availableForFlowScreens">
+    <!-- 0. Includes & Dependencies -->
+
+    <!-- 1a. Attributes - Private -->
+
+    <!-- 1b. Attributes - Public -->
+    <aura:attribute name="serializedRecords" access="global" type="String"/>
+    <aura:attribute name="records" access="global" type="SObject[]"/>
+    <aura:attribute name="flowDeveloperName" access="global" type="String"/>
+
+    <!-- 2a. Handlers - Local -->
+    <aura:handler name="init" value="{!this}" action="{!c.serializedRecordsChanged}"/>
+    <aura:handler name="change" value="{!v.serializedRecords}" action="{!c.serializedRecordsChanged}"/>
+
+    <!-- 2b. Handlers - Event -->
+
+    <!-- 3. Event Register -->
+
+    <!-- 4. Methods -->
+
+    <!-- 5. Data Service Components, e.g. LDS or Providers -->
+
+    <!-- 6. Component Markup -->
+
+    <aura:iteration items="{!v.records}" var="thisRecord">
+        <c:ScreenFlow flowDeveloperName="{!v.flowDeveloperName}" record="{!thisRecord}"/>
+    </aura:iteration>
+
+</aura:component>
