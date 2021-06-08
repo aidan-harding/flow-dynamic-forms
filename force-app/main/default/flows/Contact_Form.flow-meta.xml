@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>51.0</apiVersion>
+    <assignments>
+        <name>Assign_Contact_Details</name>
+        <label>Assign Contact Details</label>
+        <locationX>616</locationX>
+        <locationY>412</locationY>
+        <assignmentItems>
+            <assignToReference>Record.FirstName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>First_Name_0_0</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Record.LastName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Last_Name_0_0</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Contact</targetReference>
+        </connector>
+    </assignments>
     <interviewLabel>Contact Form {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Contact Form</label>
     <processMetadataValues>
@@ -12,7 +35,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -22,16 +45,66 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordUpdates>
+        <name>Update_Contact</name>
+        <label>Update Contact</label>
+        <locationX>776</locationX>
+        <locationY>504</locationY>
+        <connector>
+            <targetReference>Display_Contact_Form_0</targetReference>
+        </connector>
+        <inputReference>Record</inputReference>
+    </recordUpdates>
     <screens>
-        <name>Contact_Form</name>
-        <label>Contact</label>
-        <locationX>176</locationX>
-        <locationY>158</locationY>
+        <name>Display_Contact_Form_0</name>
+        <label>Display Contact</label>
+        <locationX>775</locationX>
+        <locationY>206</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Edit_Contact_Form</targetReference>
+        </connector>
         <fields>
-            <name>First_Name</name>
+            <name>First_Name_Display_0</name>
+            <fieldText>&lt;p&gt;{!Record.FirstName}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Last_Name_Display_0</name>
+            <fieldText>&lt;p&gt;{!Record.LastName}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Edit_Contact</name>
+            <extensionName>c:flowButton</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>buttonLabel</name>
+                <value>
+                    <stringValue>Edit</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Edit_Contact_Form</name>
+        <label>Edit Contact</label>
+        <locationX>472</locationX>
+        <locationY>317</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Assign_Contact_Details</targetReference>
+        </connector>
+        <fields>
+            <name>First_Name_0_0</name>
             <dataType>String</dataType>
             <defaultValue>
                 <elementReference>Record.FirstName</elementReference>
@@ -41,7 +114,7 @@
             <isRequired>true</isRequired>
         </fields>
         <fields>
-            <name>Last_Name</name>
+            <name>Last_Name_0_0</name>
             <dataType>String</dataType>
             <defaultValue>
                 <elementReference>Record.LastName</elementReference>
@@ -50,17 +123,37 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
         </fields>
+        <fields>
+            <name>Contact_Save</name>
+            <extensionName>c:flowButton</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>buttonLabel</name>
+                <value>
+                    <stringValue>Save</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
         <showFooter>false</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
+        <locationX>650</locationX>
+        <locationY>48</locationY>
         <connector>
-            <targetReference>Contact_Form</targetReference>
+            <targetReference>Display_Contact_Form_0</targetReference>
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>Editing</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>Record</name>
         <dataType>SObject</dataType>

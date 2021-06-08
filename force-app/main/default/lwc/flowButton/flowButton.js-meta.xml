@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <description>When pressed, it assigns the "value" property to "output" and advances to the
+        next screen. Specify "value" to a constant and assign "output" to a variable. Then you can use these like
+        radio buttons to pick one from n choices</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Flow Button</masterLabel>
+
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="buttonLabel" type="String" label="Button Label" />
+            <property name="value" type="String" label="Value to assign" />
+            <property name="output" type="String" label="Output" />
+        </targetConfig>
+
+    </targetConfigs>
+
+</LightningComponentBundle>

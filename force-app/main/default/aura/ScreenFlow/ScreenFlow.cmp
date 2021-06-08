@@ -26,6 +26,6 @@
 
     <!-- 6. Component Markup -->
 
-    <lightning:flow aura:id="theFlow" class="slds-box_border"/>
+    <lightning:flow aura:id="theFlow" class="slds-box_border slds-m-bottom_x-small"/>
 
 </aura:component>
